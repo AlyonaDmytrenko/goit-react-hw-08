@@ -1,9 +1,13 @@
 import { useDispatch } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
-import ContactList from './components/ContactList/ContactList';
-// import SearchBox from './components/SearchBox/SearchBox';
 import { useEffect } from 'react';
 import { fetchDataThunk } from './redux/contactsOps';
+import { Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import NotFound from './pages/NotFound';
+import Contacts from './pages/contacts';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,8 +18,13 @@ function App() {
     <div>
       <h1>Phonebook</h1>
       <ContactForm />
-      {/* <SearchBox /> */}
-      <ContactList />
+      <Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/" element={<NotFound />} />
+      </Route>
     </div>
   );
 }
