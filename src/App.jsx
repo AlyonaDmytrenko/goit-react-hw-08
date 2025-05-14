@@ -3,11 +3,6 @@ import ContactForm from './components/ContactForm/ContactForm';
 import { useEffect } from 'react';
 import { fetchDataThunk } from './redux/contactsOps';
 import { Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import NotFound from './pages/NotFound';
-import Contacts from './pages/contacts';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,11 +14,11 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm />
       <Route>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/" element={<NotFound />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/contacts" element={<ContactPage />} />
+        {/* <Route path="/" element={<NotFound />} /> */}
       </Route>
     </div>
   );
