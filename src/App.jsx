@@ -6,8 +6,9 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegistrationPage';
 import ContactPage from './pages/ContactsPage';
-import Header from './Header';
+
 import HomePage from './pages/HomePage';
+import Layout from './Layout';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,18 +16,20 @@ function App() {
     dispatch(fetchDataThunk());
   }, [dispatch]);
   return (
-    <div>
+    <>
       <h1>Phonebook</h1>
-      <Header />
       <ContactForm />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+
+          <Route path="/contacts" element={<ContactPage />} />
+          {/* <Route path="/" element={<NotFound />} /> */}
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/contacts" element={<ContactPage />} />
-        {/* <Route path="/" element={<NotFound />} /> */}
       </Routes>
-    </div>
+    </>
   );
 }
 
