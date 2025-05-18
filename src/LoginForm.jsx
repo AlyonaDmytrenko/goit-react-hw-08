@@ -1,13 +1,17 @@
 import { Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loginThunk } from './redux/auth/operations';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     email: '',
     password: '',
   };
 
   const handleSubmit = (values, options) => {
+    dispatch(loginThunk(values));
     console.log(values, options);
   };
   return (
@@ -51,6 +55,8 @@ const LoginForm = () => {
                 </fieldset>
               </Form>
             </Formik>
+            <div className="divider divider-primary">Primary</div>
+            <Link to="/">Back to home</Link>
           </div>
         </div>
       </div>

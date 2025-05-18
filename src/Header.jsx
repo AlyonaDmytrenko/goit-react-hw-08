@@ -1,14 +1,19 @@
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
+import { selectIsLoggedIn, selectUser } from './redux/auth/selectors';
+import { useSelector } from 'react-redux';
 
 const setActiveClass = ({ isActive }) => {
   return clsx(isActive && 'text-red-500');
 };
 
 const Header = () => {
+  const user = useSelector(selectUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
     <div>
       <h2>Auth</h2>
+      {isLoggedIn && <h2>{user.name}</h2>}
       <nav>
         <NavLink className={setActiveClass} to="/">
           Home
@@ -16,12 +21,16 @@ const Header = () => {
         <NavLink className={setActiveClass} to="/contacts">
           Contacts
         </NavLink>
-        <NavLink className={setActiveClass} to="/login">
-          Login
-        </NavLink>
-        <NavLink className={setActiveClass} to="/register">
-          Register
-        </NavLink>
+        {isLoggedIn && (
+          <>
+            <NavLink className={setActiveClass} to="/login">
+              Login
+            </NavLink>
+            <NavLink className={setActiveClass} to="/register">
+              Register
+            </NavLink>
+          </>
+        )}
       </nav>
     </div>
   );
