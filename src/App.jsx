@@ -5,17 +5,19 @@ import RegisterPage from './pages/RegistrationPage';
 import ContactPage from './pages/ContactsPage';
 import HomePage from './pages/HomePage';
 import Layout from './Layout';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/auth/operations';
+import { selectIsRefreshing } from './redux/auth/selectors';
 
 function App() {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
 
-  return (
+  return isRefreshing ? null : (
     <>
       <h1>Phonebook</h1>
       <ContactForm />
