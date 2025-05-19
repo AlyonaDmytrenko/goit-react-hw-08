@@ -45,3 +45,4 @@ export const logoutThunk = createAsyncThunk('logout', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
