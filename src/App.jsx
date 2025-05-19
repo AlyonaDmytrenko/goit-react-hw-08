@@ -5,8 +5,16 @@ import RegisterPage from './pages/RegistrationPage';
 import ContactPage from './pages/ContactsPage';
 import HomePage from './pages/HomePage';
 import Layout from './Layout';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshThunk } from './redux/auth/operations';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshThunk());
+  }, [dispatch]);
+
   return (
     <>
       <h1>Phonebook</h1>
