@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/auth/operations';
 import { selectIsRefreshing } from './redux/auth/selectors';
+import PrivateRoute from './PrivateRoute';
+import ContactList from './components/ContactList/ContactList';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
 
-          <Route path="/contacts" element={<ContactPage />} />
+           <Route path="/contacts" element={<PrivateRoute><ContactList /></PrivateRoute>} />
           {/* <Route path="/" element={<NotFound />} /> */}
         </Route>
         <Route path="/login" element={<LoginPage />} />

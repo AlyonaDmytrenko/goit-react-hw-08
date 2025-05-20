@@ -47,7 +47,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <Formik
+    <div><Formik
       initialValues={initialValues}
       validate={validate}
       onSubmit={handleSubmit}
@@ -132,6 +132,12 @@ const RegistrationForm = () => {
         </Form>
       )}
     </Formik>
+    <div className="divider divider-primary">Primary</div>
+            <Link to="/">Back to home</Link>
+    </div>
+    
+    
+    
   );
 };
 
