@@ -46,7 +46,7 @@ const LoginForm = () => {
                   />
                   <div>
                     <Link to="/register" className="link link-hover">
-                      You don't have account? Sign UP
+                      You doO have account? Sign UP
                     </Link>
                   </div>
                   <button type="submit" className="btn btn-neutral mt-4">

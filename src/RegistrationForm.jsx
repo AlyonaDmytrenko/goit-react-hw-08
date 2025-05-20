@@ -101,6 +101,7 @@ const RegistrationForm = () => {
                       type="password"
                       className="input w-full"
                       placeholder="Password"
+                     
                     />
                     <ErrorMessage
                       name="password"

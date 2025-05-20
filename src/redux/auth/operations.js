@@ -15,7 +15,7 @@ const removeAuthHeader = () => {
 };
 
 export const registerThunk = createAsyncThunk(
-  'register',
+  'users/register',
   async (body, thunkAPI) => {
     try {
       const response = await goitAPI.post('/users/signup', body);
