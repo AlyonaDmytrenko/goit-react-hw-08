@@ -1,39 +1,54 @@
-import ContactForm from './components/ContactForm/ContactForm';
-import { Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn, selectIsRefreshing } from "./redux/auth/selectors";
+import { useEffect } from "react";
+import { refreshThunk } from "./redux/auth/operations";
+import { Route, Routes } from "react-router-dom";
+import Layout from './Layout';
+import HomePage from './pages/HomePage';
+import ContactsForm from './components/ContactForm/ContactForm';
+import PrivateRoute from './PrivateRoute';
+import ContactsPage from './pages/ContactsPage';
+import RestrictedRoute from './RestrictedRoute';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegistrationPage';
-import HomePage from './pages/HomePage';
-import Layout from './Layout';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { refreshThunk } from './redux/auth/operations';
-import { selectIsRefreshing } from './redux/auth/selectors';
-import PrivateRoute from './PrivateRoute';
-import ContactList from './components/ContactList/ContactList';
-import RestrictedRoute from './RestrictedRoute';
+
+
+
 
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевірка чи авторизований користувач
+
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
 
   return isRefreshing ? null : (
-    <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
 
-           <Route path="/contacts" element={<PrivateRoute><ContactList /></PrivateRoute>} />
-          {/* <Route path="/" element={<NotFound />} /> */}
-        </Route>
-        <Route path="/login" element={<RestrictedRoute component={<LoginPage />} redirectTo='/contacts'/>} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
-    </>
+        {/* Приватний маршрут для контактів */}
+        <Route
+          path="/contacts"
+          element={
+            isLoggedIn ? (
+              <ContactsForm /> // Якщо користувач авторизований, показуємо форму для контактів
+            ) : (
+              <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
+            )
+          }
+        />
+      </Route>
+
+      {/* Публічні маршрути */}
+      <Route
+        path="/login"
+        element={<RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />}
+      />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
   );
 }
 

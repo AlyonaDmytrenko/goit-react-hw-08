@@ -1,12 +1,14 @@
+import AppBar from './AppBar';
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
 
 const Layout = () => {
   return (
-    <>
-      <Header />
-      <Outlet />
-    </>
+    <div>
+      <AppBar /> {/* Виводимо лише один раз */}
+      <main>
+        <Outlet /> {/* Місце для рендеру конкретних сторінок */}
+      </main>
+    </div>
   );
 };
 

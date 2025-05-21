@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import ContactList from '../components/ContactList/ContactList';
 import { useEffect } from 'react';
-import { fetchDataThunk } from '../redux/contactsOps';
+import { fetchDataThunk } from '../redux/contacts/operations';
+
 
 const ContactsPage = () => {
   const dispatch = useDispatch();

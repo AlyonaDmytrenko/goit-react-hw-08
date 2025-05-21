@@ -9,7 +9,8 @@ import {
   MIN_CHAR_NAME_VALIDATION,
 } from '../../utils/constants';
 import css from './contactForm.module.css';
-import { addContactThunk } from '../../redux/contactsOps';
+import { addContactThunk } from '../../redux/contacts/operations';
+
 
 const contactSchema = Yup.object({
   name: Yup.string()

@@ -1,15 +1,11 @@
-import { useSelector } from "react-redux"
-import { selectIsLoggedIn } from "./redux/auth/selectors"
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from './redux/auth/selectors';
 
-const RestrictedRoute = ({component, redirectTo = '/'}) => {
-    const isLoggedIn = useSelector(selectIsLoggedIn);
- if(isLoggedIn){
-    // toast.error('You already logged in, but this info is not for you')
-    return <Navigate to={redirectTo}/>
- }
+const RestrictedRoute = ({ component, redirectTo }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  return component
-}
+  return !isLoggedIn ? component : <Navigate to={redirectTo} />;
+};
 
-export default RestrictedRoute
+export default RestrictedRoute;

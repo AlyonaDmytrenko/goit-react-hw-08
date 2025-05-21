@@ -14,36 +14,60 @@ const initialState = {
   token: null,
   isRefreshing: false,
   isLoggedIn: false,
+  error: null, // опціонально для відображення помилок
 };
 
-const slice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: builder => {
     builder
+      // Register
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = null;
       })
+      .addCase(registerThunk.rejected, (state, action) => {
+        state.error = action.payload || action.error.message;
+      })
+
+      // Login
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(loginThunk.rejected, (state, action) => {
+        state.error = action.payload || action.error.message;
+      })
+
+      // Refresh
+      .addCase(refreshThunk.pending, state => {
+        state.isRefreshing = true;
       })
       .addCase(refreshThunk.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
         state.user = action.payload;
+        state.isLoggedIn = true;
         state.isRefreshing = false;
-      })
-      .addCase(refreshThunk.pending, (state, action) => {
-        state.isRefreshing = true;
+        state.error = null;
       })
       .addCase(refreshThunk.rejected, (state, action) => {
         state.isRefreshing = false;
+        state.error = action.payload || action.error.message;
       })
-      .addCase(logoutThunk.fulfilled, () => initialState);
+
+      // Logout
+      .addCase(logoutThunk.fulfilled, state => {
+        state.user = { email: null, name: null };
+        state.token = null;
+        state.isLoggedIn = false;
+        state.isRefreshing = false;
+        state.error = null;
+      });
   },
 });
 
-export const authReducer = slice.reducer;
+export const authReducer = authSlice.reducer;
