@@ -2,7 +2,6 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
-// import { addContact } from '../../redux/contactsSlice';
 import {
   FORM_INITIAL_VALUES,
   MAX_CHAR_NAME_VALIDATION,
@@ -36,6 +35,8 @@ const ContactForm = () => {
     };
     dispatch(addContactThunk(finalContact));
     actions.resetForm();
+  
+    
   };
 
   return (
