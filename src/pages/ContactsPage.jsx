@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
-import ContactList from '../components/ContactList/ContactList';
 import { useEffect } from 'react';
 import { fetchDataThunk } from '../redux/contacts/operations';
+import ContactForm from '../components/ContactForm/ContactForm';
+import NameFilter from '../components/Filter/NameFilter';
+import ContactList from '../components/ContactList/ContactList';
 
 
 const ContactsPage = () => {
@@ -11,7 +13,10 @@ const ContactsPage = () => {
   }, [dispatch]);
   return (
     <div>
-      <ContactList />
+       <h1>Phonebook</h1>
+      <ContactForm />
+       <ContactList />
+          
     </div>
   );
 };

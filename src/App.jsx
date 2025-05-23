@@ -15,10 +15,11 @@ import RegisterPage from './pages/RegistrationPage';
 
 
 
+
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевірка чи авторизований користувач
+ 
 
   useEffect(() => {
     dispatch(refreshThunk());
@@ -29,19 +30,15 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
 
-        {/* Приватний маршрут для контактів */}
         <Route
           path="/contacts"
           element={
-            isLoggedIn ? (
-              <ContactsForm /> // Якщо користувач авторизований, показуємо форму для контактів
-            ) : (
-              <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
-            )
-          }
+                <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
+                  }
         />
+          
       </Route>
-
+       
       {/* Публічні маршрути */}
       <Route
         path="/login"
